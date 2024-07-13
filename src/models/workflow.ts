@@ -3,7 +3,8 @@ import mongoose, { Document, Schema } from 'mongoose';
 interface Trigger {
   type: string;
   app: string;
-  data: Record<string, unknown>;
+  metaData?: string;
+  data?: Record<string, unknown>;
 }
 
 interface Workflow extends Document {
@@ -17,7 +18,8 @@ interface Workflow extends Document {
 const triggerSchema = new Schema<Trigger>({
   type: { type: String, required: true },
   app: { type: String, required: true },
-  data: { type: Schema.Types.Mixed, required: true } // Mixed type for dynamic data
+  metaData: { type: String , required: false },
+  data: { type: Schema.Types.Mixed, required: false } // Mixed type for dynamic data
 });
 
 const workflowSchema = new Schema<Workflow>({

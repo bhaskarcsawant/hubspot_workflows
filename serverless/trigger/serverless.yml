@@ -1,0 +1,62 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: bhaskarsawant
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: trigger
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: trigger
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sqs:ReceiveMessage"
+        - "sqs:DeleteMessage"
+        - "sqs:GetQueueAttributes"
+        - "sqs:SendMessage"
+      Resource: 
+        - "arn:aws:sqs:ap-south-1:850698446904:trigger_queue"
+        - "arn:aws:sqs:ap-south-1:850698446904:actions_queue"
+  environment:
+    OUTPUT_QUEUE_URL:
+      Ref: ActionsQueue
+    MONGODB_URI: mongodb+srv://bhaskartestingit:qevEvDd81JkIH6ix@cluster1.ncfhme4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1
+    MONGODB_DB: test
+
+functions:
+  sqsHandler:
+    handler: handler.triggerHandler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - TriggerQueue
+              - Arn
+          batchSize: 1
+  actionsHandler:
+    handler: actionsHandler.actionsHandler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - ActionsQueue
+              - Arn
+          batchSize: 1
+
+resources:
+  Resources:
+    TriggerQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: "trigger_queue"
+    ActionsQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: "actions_queue"
+
+

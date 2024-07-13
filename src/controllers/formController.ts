@@ -40,7 +40,7 @@ export const createFormSubmission = async (req: Request<{}, {}, FormSubmissionBo
     let workflowData = {
       app: 'forms',
       type: 'new_submission',
-      metaData: JSON.stringify({ formId }),
+      metaData: JSON.stringify({ _id: formId }),
       data: newForm,
     }
     

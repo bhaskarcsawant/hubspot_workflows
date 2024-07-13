@@ -48,6 +48,7 @@ build/
 hubspot_workflows/node_modules/
 jspm_packages/
 hubspot_workflows/build/
+serverless/node_modules/
 
 
 # TypeScript v1 declaration files

@@ -6,12 +6,13 @@ interface WorkflowBody {
     trigger: {
         type: string;
         app: string;
-        data: Record<string, unknown>;
+        metaData?: string;
+        data?: Record<string, unknown>;
     };
     actions: {
         type: string;
         app: string;
-        data: Record<string, unknown>;
+        data?: Record<string, unknown>;
     }[];
 }
 

@@ -75,3 +75,4 @@ export const handler = async (event: SQSEvent, context: Context): Promise<void> 
         console.error(error);
     }
 };
+

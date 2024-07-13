@@ -9,6 +9,7 @@ interface MessageBody {
 export const sendMessage = async (req: Request<{}, {}, MessageBody>, res: Response): Promise<void> => {
   try {
     const { message, from } = req.body;
+    console.log(req.body)
     const newMessage = new Message({ message, from });
 
     await newMessage.save();
