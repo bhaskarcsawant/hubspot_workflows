@@ -1,8 +1,5 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: bhaskarsawant
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: trigger
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: trigger
 
 plugins:
@@ -19,14 +16,15 @@ provider:
         - "sqs:DeleteMessage"
         - "sqs:GetQueueAttributes"
         - "sqs:SendMessage"
-      Resource: 
-        - "arn:aws:sqs:ap-south-1:850698446904:trigger_queue"
-        - "arn:aws:sqs:ap-south-1:850698446904:actions_queue"
+      Resource:
+        - !GetAtt TriggerQueue.Arn
+        - !GetAtt ActionsQueue.Arn
   environment:
     OUTPUT_QUEUE_URL:
       Ref: ActionsQueue
-    MONGODB_URI: DB_URL
-    MONGODB_DB: DB_NAME
+    MONGODB_URI: ${env:DB_URL}
+    MONGODB_DB: ${env:DB_NAME}
+    API_SERVER_URL: ${env:API_URL}
 
 functions:
   sqsHandler:
@@ -39,7 +37,7 @@ functions:
               - Arn
           batchSize: 1
   actionsHandler:
-    handler: actionsHandler.actionsHandler
+    handler: handler.actionsHandler
     events:
       - sqs:
           arn:
@@ -58,5 +56,3 @@ resources:
       Type: "AWS::SQS::Queue"
       Properties:
         QueueName: "actions_queue"
-
-
