@@ -25,8 +25,8 @@ provider:
   environment:
     OUTPUT_QUEUE_URL:
       Ref: ActionsQueue
-    MONGODB_URI: mongodb+srv://bhaskartestingit:qevEvDd81JkIH6ix@cluster1.ncfhme4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1
-    MONGODB_DB: test
+    MONGODB_URI: DB_URL
+    MONGODB_DB: DB_NAME
 
 functions:
   sqsHandler:

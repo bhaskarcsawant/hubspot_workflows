@@ -7,7 +7,7 @@ import handelError from './middlewares/error';
 dotenv.config();
 
 const HOST = process.env.HOST || 'http://localhost';
-const PORT = parseInt(process.env.PORT || '3000');
+const PORT = parseInt(process.env.PORT || '8080');
 
 const app = express();
 
