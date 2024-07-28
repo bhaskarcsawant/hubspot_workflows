@@ -37,7 +37,7 @@ functions:
               - Arn
           batchSize: 1
   actionsHandler:
-    handler: handler.actionsHandler
+    handler: actionsHandler.actionsHandler
     events:
       - sqs:
           arn:

@@ -25,3 +25,13 @@ export const createWorkflow = async (req: Request<{}, {}, WorkflowBody>, res: Re
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+
+export const getWorkflows = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const workflows = await Workflow.find();
+    res.status(200).json(workflows);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

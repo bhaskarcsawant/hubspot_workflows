@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { connectToDatabase } from './databaseConnection';
+import { connectToDatabase } from './helpers/databaseConnection';
 import routes from './routes/routes';
 import handelError from './middlewares/error';
 
